@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/softstuck/jenkins-pipline.git'
+                git branch: 'main', url: 'https://github.com/saterraform26-droid/jenkins-terra-demo.git'
             }
         }
         stage('Terraform init') {
