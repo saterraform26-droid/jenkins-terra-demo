@@ -20,13 +20,13 @@ pipeline {
         }
         stage('Terraform init') {
             steps {
-                cmd.exe 'terraform init'
+                sh 'terraform init'
             }
         }
         stage('Plan') {
             steps {
-                cmd.exe 'terraform plan -out tfplan'
-                cmd.exe 'terraform show -no-color tfplan > tfplan.txt'
+                sh 'terraform plan -out tfplan'
+                sh 'terraform show -no-color tfplan > tfplan.txt'
             }
         }
         stage('Apply / Destroy') {
@@ -39,9 +39,9 @@ pipeline {
                             parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
                         }
 
-                        cmd.exe 'terraform ${action} -input=false tfplan'
+                        sh 'terraform ${action} -input=false tfplan'
                     } else if (params.action == 'destroy') {
-                        cmd.exe 'terraform ${action} --auto-approve'
+                        sh 'terraform ${action} --auto-approve'
                     } else {
                         error "Invalid action selected. Please choose either 'apply' or 'destroy'."
                     }
